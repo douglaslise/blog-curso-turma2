@@ -1,0 +1,32 @@
+<%= render @post %>
+
+<h4>Comentários</h4>
+
+<% @post.comentarios.each do |comentario| %>
+	<p><%= comentario.texto %></p>
+	<small>
+	  <%= comentario.autor %>
+	  (<%= l comentario.created_at, 
+	         format: :short %>)
+	</small>
+<% end %>
+
+<h4>Novo Comentário</h4>
+
+<%= form_for([@post, Comentario.new]) do |f| %>
+	<div class="field">
+		<%= f.label :texto %>
+		<%= f.text_area :texto %>
+	</div>
+
+	<div class="field">
+		<%= f.label :autor %>
+		<%= f.text_field :autor %>
+	</div>
+
+	<%= f.submit %>
+<% end %>
+
+<%= link_to "Voltar", posts_path %>
+
+<%= link_to "Editar", edit_post_path(@post) %>

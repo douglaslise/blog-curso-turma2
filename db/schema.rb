@@ -11,7 +11,17 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140110234414) do
+ActiveRecord::Schema.define(version: 20140111185641) do
+
+  create_table "comentarios", force: true do |t|
+    t.string   "autor"
+    t.text     "texto"
+    t.integer  "post_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "comentarios", ["post_id"], name: "index_comentarios_on_post_id"
 
   create_table "posts", force: true do |t|
     t.string   "titulo"

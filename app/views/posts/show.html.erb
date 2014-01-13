@@ -8,6 +8,10 @@
 	  <%= comentario.autor %>
 	  (<%= l comentario.created_at, 
 	         format: :short %>)
+	  (<%= link_to "Excluir comentário",
+	  			post_comentario_path(@post, comentario),
+	  			method: 'delete',
+				  data: {confirm: 'Você tem certeza?'}  %>)
 	</small>
 <% end %>
 

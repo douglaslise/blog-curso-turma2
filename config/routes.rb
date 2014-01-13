@@ -1,5 +1,6 @@
 Blog::Application.routes.draw do
 
+  devise_for :users
   #get '/posts' => 'posts#index', as: 'posts'
   #get '/posts/:id' => 'posts#show', as: 'post'
 

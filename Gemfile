@@ -45,3 +45,6 @@ end
 # gem 'debugger', group: [:development, :test]
 
 gem 'rails-i18n'
+
+gem 'devise'
+gem 'devise-i18n-views'

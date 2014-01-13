@@ -13,4 +13,12 @@ class ComentariosController < ApplicationController
 		redirect_to post_url(@post)
 	end
 
+	def destroy
+		@post = Post.find(params[:post_id])
+		@comentario = @post.comentarios.find(params[:id])
+		@comentario.destroy
+
+		redirect_to post_url(@post)
+	end
+
 end

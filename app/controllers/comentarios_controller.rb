@@ -10,6 +10,8 @@ class ComentariosController < ApplicationController
 		
 		@comentario.save
 
+		Notificacao.novo_comentario(@comentario).deliver
+
 		redirect_to post_url(@post)
 	end
 
@@ -17,8 +19,10 @@ class ComentariosController < ApplicationController
 		@post = Post.find(params[:post_id])
 		@comentario = @post.comentarios.find(params[:id])
 		@comentario.destroy
-
-		redirect_to post_url(@post)
+		respond_to do |format|
+	    format.html {redirect_to post_url(@post)}
+	    format.js   {}
+	  end
 	end
 
 end

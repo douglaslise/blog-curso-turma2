@@ -1,5 +1,8 @@
 <h3>
 	<%= link_to post.titulo, post_path(post) %>
+	<% unless post.publicado %>
+		(Rascunho)
+	<% end %>
 	(<%= link_to "Excluir", post_path(post), 
     method: 'delete', 
     data: {confirm: 'Tem certeza?'} %>)

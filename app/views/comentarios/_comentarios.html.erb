@@ -1,0 +1,31 @@
+<h4>Comentários</h4>
+
+<% post.comentarios.each do |comentario| %>
+	<p><%= comentario.texto %></p>
+	<small>
+	  <%= comentario.autor %>
+	  (<%= l comentario.created_at, 
+	         format: :short %>)
+	  (<%= link_to "Excluir comentário",
+	  			post_comentario_path(post, comentario),
+	  			method: 'delete',
+				  data: {confirm: 'Você tem certeza?',
+				  			 remote: true}  %>)
+	</small>
+<% end %>
+
+<h4>Novo Comentário</h4>
+
+<%= form_for([post, Comentario.new]) do |f| %>
+	<div class="field">
+		<%= f.label :texto %>
+		<%= f.text_area :texto %>
+	</div>
+
+	<div class="field">
+		<%= f.label :autor %>
+		<%= f.text_field :autor %>
+	</div>
+
+	<%= f.submit %>
+<% end %>

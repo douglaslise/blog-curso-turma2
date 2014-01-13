@@ -4,11 +4,12 @@ class PostsController < ApplicationController
     except: [:index, :show] 
 
 	def index
-		@posts = Post.all
+		carrega_posts
 	end
 
 	def show
-		@post = Post.find(params[:id])
+		carrega_posts
+		@post = @posts.find(params[:id])
 	end
 
 	def new
@@ -17,8 +18,9 @@ class PostsController < ApplicationController
 
 	def create
 		@post = Post.new
-		@post.titulo = params[:post][:titulo]
-		@post.texto  = params[:post][:texto]
+		@post.titulo    = params[:post][:titulo]
+		@post.texto     = params[:post][:texto]
+		@post.publicado = params[:post][:publicado]
 		if @post.save
 		  redirect_to post_url(@post)
 		else
@@ -34,7 +36,7 @@ class PostsController < ApplicationController
 		@post = Post.find(params[:id])
 		
 		@post.update(params[:post].
-			permit([:titulo, :texto]))
+			permit([:titulo, :texto, :publicado]))
 		
 		if @post.save
 			redirect_to post_url(@post)
@@ -46,8 +48,17 @@ class PostsController < ApplicationController
 	def destroy
 		@post = Post.find(params[:id])
 		@post.destroy
+		
 		redirect_to posts_url
 	end
+
+private
+  def carrega_posts
+		@posts = Post.mais_recentes
+		unless user_signed_in?
+			@posts = @posts.publicados
+		end
+  end
 
 end
 	
